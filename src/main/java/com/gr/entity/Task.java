@@ -3,6 +3,7 @@ package com.gr.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name="tb_task")
 public class Task {
 
 	@Column(name = "name")

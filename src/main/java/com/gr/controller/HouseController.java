@@ -1,6 +1,7 @@
 package com.gr.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import com.gr.services.HouseService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(path="/houses")
+@RequestMapping(path="/api")
 public class HouseController {
 	
 	private final HouseService houseService;
@@ -30,8 +31,8 @@ public class HouseController {
 	
 	@ResponseStatus(HttpStatus.OK)
     @GetMapping("/house")
-    List<House> listHouses(){
-        return houseService.listHouses();
+    List<HouseDTO> listHouses(){
+        return houseService.listHouses().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -42,10 +43,10 @@ public class HouseController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(path = "/house")
-    HouseDTO createHouse(@Valid @RequestBody HouseDTO houseDTO){
+    @PostMapping(path = "/house/{userId}")
+    HouseDTO createHouse(@Valid @RequestBody HouseDTO houseDTO, @PathVariable Long userId){
         House h = convertToEntity(houseDTO);
-        House saved = houseService.createHouse(h);
+        House saved = houseService.createHouse(h, userId);
         return convertToDTO(saved);
     }
 

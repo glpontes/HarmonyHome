@@ -9,7 +9,19 @@ public class HouseDTO {
 	
 	@NotNull
 	@NotBlank
-	private String adress;
+	private String address;
+
+	@NotNull
+	@NotBlank
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName( String name) {
+		this.name = name;
+	}
 
 	public HouseDTO() {
 		super();
@@ -23,17 +35,17 @@ public class HouseDTO {
 		this.id = id;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String adress) {
+		this.address = adress;
 	}
 
 	@Override
 	public String toString() {
-		return "HouseDTO {id=" + id + ", adress=" + adress + "}";
+		return "HouseDTO {id=" + id + ", adress=" + address + "}";
 	}
 	
 	
