@@ -1,6 +1,9 @@
 package com.gr.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.Collection;
 
 @Entity
 @Table(name = "tb_user")
@@ -19,6 +22,34 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Long id;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Collection<House> houses;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinTable(
+            name="user_house",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "house_id"))
+    private Collection<House> housesShared;
+
+    public Collection<House> getHouses() {
+        return houses;
+    }
+
+    public void setHouses(Collection<House> houses) {
+        this.houses = houses;
+    }
+
+    public Collection<House> getHousesShared() {
+        return housesShared;
+    }
+
+    public void setHousesShared(Collection<House> housesShared) {
+        this.housesShared = housesShared;
+    }
 
     public User() {
     }

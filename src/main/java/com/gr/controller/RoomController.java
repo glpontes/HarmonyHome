@@ -13,7 +13,7 @@ import com.gr.services.RoomService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/rooms")
+@RequestMapping(path = "/api")
 public class RoomController {
 
 	private final RoomService roomService;

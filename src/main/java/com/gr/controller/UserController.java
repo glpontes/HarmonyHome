@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -24,8 +25,8 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/user")
-    List<User> listUsers(){
-        return userService.listUsers();
+    List<UserDTO> listUsers(){
+        return userService.listUsers().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -58,9 +59,19 @@ public class UserController {
         userService.deleteUser(userId);
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/user/{userId}/house/{houseId}/share")
+    public UserDTO shareHouse(@PathVariable Long userId, @PathVariable Long houseId){
+        User u = userService.share(houseId, userId);
+        return convertToDTO(u);
+    }
 
-
-
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/user/{userId}/house/{houseId}/share")
+    public UserDTO deleteHouse(@PathVariable Long userId, @PathVariable Long houseId){
+        User u = userService.unshare(houseId, userId);
+        return convertToDTO(u);
+    }
 
     private UserDTO convertToDTO(User u) {
         return modelMapper.map(u, UserDTO.class);

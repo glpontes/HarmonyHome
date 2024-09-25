@@ -13,7 +13,7 @@ import com.gr.services.TaskService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(path= "/tasks")
+@RequestMapping(path= "/api")
 public class TaskController {
 
 	private final TaskService taskService;
