@@ -4,13 +4,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import com.gr.exception.ItemNotFoundException;
 import com.gr.entity.User;
 import com.gr.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+
 import com.gr.entity.House;
-import com.gr.exception.HouseNotFoundException;
-import com.gr.exception.UserNotFoundException;
 import com.gr.repository.HouseRepository;
 
 
@@ -30,7 +30,7 @@ public class HouseService {
     }
 
     public House getHouseById(Long houseId){
-        return houseRepository.findById(houseId).orElseThrow(() -> new HouseNotFoundException("House not found"));
+        return houseRepository.findById(houseId).orElseThrow(() -> new ItemNotFoundException("House not found"));
     }
 
     public House createHouse(House house, Long userId) {
@@ -39,7 +39,7 @@ public class HouseService {
             house.setUser(userOptional.get());
             return houseRepository.save(house);
         }
-        throw new UserNotFoundException("User not found");
+        throw new ItemNotFoundException("User not found");
     }
 
     public House updateHouse(Long houseId, House house) {
@@ -50,7 +50,7 @@ public class HouseService {
             houseToUpdate.setAddress(house.getAddress());
             return houseRepository.save(houseToUpdate);
         }
-        throw new HouseNotFoundException("house not found");
+        throw new ItemNotFoundException("house not found");
     }
 
     public void deleteHouse(Long houseId) {

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.gr.entity.Room;
-import com.gr.exception.RoomNotFoundException;
+import com.gr.exception.ItemNotFoundException;
 import com.gr.repository.RoomRepository;
 
 @Service
@@ -23,7 +23,7 @@ public class RoomService {
     }
 
     public Room getRoomById(Long roomId){
-        return roomRepository.findById(roomId).orElseThrow(() -> new RoomNotFoundException("Room not found"));
+        return roomRepository.findById(roomId).orElseThrow(() -> new ItemNotFoundException("Room not found"));
     }
 
     public Room createRoom(Room room) {
@@ -37,11 +37,11 @@ public class RoomService {
             roomToUpdate.setName(room.getName());
             return roomRepository.save(roomToUpdate);
         }
-        throw new RoomNotFoundException("Room not found");
+        throw new ItemNotFoundException("Room not found");
     }
 
     public void deleteRoom(Long roomId) {
-        Room room = roomRepository.findById(roomId).orElseThrow(() -> new RoomNotFoundException("Room not found"));
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new ItemNotFoundException("Room not found"));
         roomRepository.delete(room);
     }
 }

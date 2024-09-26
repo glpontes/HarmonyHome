@@ -2,8 +2,7 @@ package com.gr.services;
 
 import com.gr.entity.House;
 import com.gr.entity.User;
-import com.gr.exception.EntityNotFoundException;
-import com.gr.exception.UserNotFoundException;
+import com.gr.exception.ItemNotFoundException;
 import com.gr.repository.HouseRepository;
 import com.gr.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class UserService {
     }
 
     public User getUserById(Long userId){
-        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        return userRepository.findById(userId).orElseThrow(() -> new ItemNotFoundException("User not found"));
     }
 
     public User createUser(User user) {
@@ -43,11 +42,11 @@ public class UserService {
             userToUpdate.setEmail(user.getEmail());
             return userRepository.save(userToUpdate);
         }
-        throw new UserNotFoundException("User not found");
+        throw new ItemNotFoundException("User not found");
     }
 
     public void deleteUser(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new ItemNotFoundException("User not found"));
         userRepository.delete(user);
     }
 
@@ -59,7 +58,7 @@ public class UserService {
             user.getHousesShared().add(houseOptional.get());
             return userRepository.save(user);
         }
-        throw new EntityNotFoundException("House or User not found");
+        throw new ItemNotFoundException("House or User not found");
     }
 
     public User unshare(Long houseId, Long userId) {
@@ -70,7 +69,7 @@ public class UserService {
             user.getHousesShared().remove(houseOptional.get());
             return userRepository.save(user);
         }
-        throw new EntityNotFoundException("House or User not found");
+        throw new ItemNotFoundException("House or User not found");
     }
 
 }

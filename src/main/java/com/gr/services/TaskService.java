@@ -2,11 +2,10 @@ package com.gr.services;
 
 import java.util.List;
 import java.util.Optional;
-
+import com.gr.exception.ItemNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.gr.entity.Task;
-import com.gr.exception.TaskNotFoundException;
 import com.gr.repository.TaskRepository;
 
 @Service
@@ -23,7 +22,7 @@ public class TaskService {
     }
 
     public Task getTaskById(Long taskId){
-        return taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("Task not found"));
+        return taskRepository.findById(taskId).orElseThrow(() -> new ItemNotFoundException("Task not found"));
     }
 
     public Task createTask(Task task) {
@@ -38,11 +37,11 @@ public class TaskService {
             taskToUpdate.setChecked(task.getChecked());
             return taskRepository.save(taskToUpdate);
         }
-        throw new TaskNotFoundException("Task not found");
+        throw new ItemNotFoundException("Task not found");
     }
 
     public void deleteTask(Long taskId) {
-        Task task = taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("Task not found"));
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new ItemNotFoundException("Task not found"));
         taskRepository.delete(task);
     }
 
