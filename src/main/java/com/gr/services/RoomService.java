@@ -3,6 +3,7 @@ package com.gr.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.gr.exception.HouseNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.gr.entity.House;
@@ -37,7 +38,7 @@ public class RoomService {
         	room.setHouse(houseOptional.get());
         	return roomRepository.save(room);
         }
-        throw new RoomNotFoundException("Room not found");
+        throw new HouseNotFoundException("Room not found");
     }
 
     public Room updateRoom(Long roomId, Room room) {

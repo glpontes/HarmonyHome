@@ -3,6 +3,9 @@ package com.gr.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.gr.entity.Room;
+import com.gr.exception.RoomNotFoundException;
+import com.gr.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
 import com.gr.entity.Task;
@@ -14,8 +17,11 @@ public class TaskService {
 	
 	private TaskRepository taskRepository;
 
-    public TaskService(TaskRepository taskRepository) {
+    private RoomRepository roomRepository;
+
+    public TaskService(TaskRepository taskRepository, RoomRepository roomRepository) {
         this.taskRepository = taskRepository;
+        this.roomRepository = roomRepository;
     }
 
     public List<Task> listTasks() {
@@ -26,8 +32,14 @@ public class TaskService {
         return taskRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("Task not found"));
     }
 
-    public Task createTask(Task task) {
-        return taskRepository.save(task);
+    public Task createTask(Task task, Long roomId) {
+        Optional<Room> roomOptional = roomRepository.findById(roomId);
+        if(roomOptional.isPresent()) {
+            task.setRoom(roomOptional.get());
+            task.setChecked(false);
+            return taskRepository.save(task);
+        }
+        throw new RoomNotFoundException("Room not found");
     }
 
     public Task updateTask(Long taskId, Task task) {
