@@ -41,6 +41,7 @@ public class UserService {
             User userToUpdate = userOptional.get();
             userToUpdate.setName(user.getName());
             userToUpdate.setEmail(user.getEmail());
+            userToUpdate.setUsername(user.getUsername());
             return userRepository.save(userToUpdate);
         }
         throw new UserNotFoundException("User not found");
@@ -49,6 +50,15 @@ public class UserService {
     public void deleteUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
         userRepository.delete(user);
+    }
+
+    public void changePassword(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        if(user != null) {
+            user.setPassword(password);
+            userRepository.save(user);
+        }
+        throw new UserNotFoundException("User not found");
     }
 
     public User share(Long houseId, Long userId) {
