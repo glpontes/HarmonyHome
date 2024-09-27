@@ -12,6 +12,7 @@ import com.gr.entity.House;
 import com.gr.exception.HouseNotFoundException;
 import com.gr.exception.UserNotFoundException;
 import com.gr.repository.HouseRepository;
+import com.gr.repository.RoomRepository;
 
 
 @Service
@@ -19,10 +20,12 @@ public class HouseService {
 	
 	private HouseRepository houseRepository;
     private UserRepository userRepository;
+    private RoomRepository roomRepository;
 
-	public HouseService(HouseRepository houseRepository, UserRepository userRepository) {
+	public HouseService(HouseRepository houseRepository, UserRepository userRepository, RoomRepository roomRepository) {
 		this.userRepository = userRepository;
 		this.houseRepository = houseRepository;
+		this.roomRepository = roomRepository;
 	}
 	
 	public List<House> listHouses() {

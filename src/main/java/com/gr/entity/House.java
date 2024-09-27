@@ -27,6 +27,10 @@ public class House {
     @ManyToMany(mappedBy = "housesShared", fetch = FetchType.EAGER)
     @JsonIgnore
     private Collection<User> users;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL)
+    private Collection<Room> rooms;
 
     public House() {
     }
@@ -55,7 +59,7 @@ public class House {
         this.users = users;
     }
 
-    public String getAddress() {
+	public String getAddress() {
         return address;
     }
 

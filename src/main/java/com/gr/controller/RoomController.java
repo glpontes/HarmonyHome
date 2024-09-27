@@ -39,10 +39,10 @@ public class RoomController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(path = "/room")
-    RoomDTO createRoom(@Valid @RequestBody RoomDTO roomDTO){
+    @PostMapping(path = "/room/{houseId}")
+    RoomDTO createRoom(@Valid @RequestBody RoomDTO roomDTO, @PathVariable Long houseId){
         Room r = convertToEntity(roomDTO);
-        Room saved = roomService.createRoom(r);
+        Room saved = roomService.createRoom(r, houseId);
         return convertToDTO(saved);
     }
 
