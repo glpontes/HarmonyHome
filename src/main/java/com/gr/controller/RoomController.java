@@ -33,7 +33,7 @@ public class RoomController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/room/{roomId}")
-    public RoomDTO getRoomr(@PathVariable Long roomId){
+    public RoomDTO getRoom(@PathVariable Long roomId){
         Room room = roomService.getRoomById(roomId);
         return convertToDTO(room);
     }

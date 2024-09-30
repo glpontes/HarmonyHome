@@ -1,5 +1,6 @@
 package com.gr.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,7 +17,19 @@ public class Task {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "task_id")
 	private Long id;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "room_id")
+	private Room room;
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
 	public Task() {}
 
 	public String getName() {

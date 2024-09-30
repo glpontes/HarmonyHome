@@ -20,7 +20,10 @@ public class Room {
     @ManyToOne()
     @JoinColumn(name = "house_id")
     private House house;
-    
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Collection<Task> tasks;
     
     public Room() {
     }

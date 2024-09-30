@@ -38,10 +38,10 @@ public class TaskController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(path = "/task")
-    TaskDTO createTask(@Valid @RequestBody TaskDTO taskDTO){
+    @PostMapping(path = "/task/{roomId}")
+    TaskDTO createTask(@Valid @RequestBody TaskDTO taskDTO, @PathVariable Long roomId){
         Task t = convertToEntity(taskDTO);
-        Task saved = taskService.createTask(t);
+        Task saved = taskService.createTask(t, roomId);
         return convertToDTO(saved);
     }
 
