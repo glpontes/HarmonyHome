@@ -19,6 +19,18 @@ public class UserDTO {
     @NotNull
     private String password;
 
+    @NotNull
+    @NotBlank
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public UserDTO() {}
 
     public Long getId() {
