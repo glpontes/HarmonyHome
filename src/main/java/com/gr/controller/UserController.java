@@ -53,7 +53,7 @@ public class UserController {
         return convertToDTO(userUpdated);
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/user/{userId}")
     public void deleteUser(@PathVariable Long userId){
         userService.deleteUser(userId);
