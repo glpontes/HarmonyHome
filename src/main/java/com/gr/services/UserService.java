@@ -57,6 +57,7 @@ public class UserService {
         if(user != null) {
             user.setPassword(password);
             userRepository.save(user);
+            return;
         }
         throw new UserNotFoundException("User not found");
     }

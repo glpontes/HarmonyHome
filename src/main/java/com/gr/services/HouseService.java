@@ -20,12 +20,10 @@ public class HouseService {
 	
 	private HouseRepository houseRepository;
     private UserRepository userRepository;
-    private RoomRepository roomRepository;
 
-	public HouseService(HouseRepository houseRepository, UserRepository userRepository, RoomRepository roomRepository) {
+	public HouseService(HouseRepository houseRepository, UserRepository userRepository) {
 		this.userRepository = userRepository;
 		this.houseRepository = houseRepository;
-		this.roomRepository = roomRepository;
 	}
 	
 	public List<House> listHouses() {
@@ -65,9 +63,9 @@ public class HouseService {
                 user.getHousesShared().remove(house);
                 userRepository.save(user);
             });
-            houseRepository.save(house);
-        }
-        houseRepository.deleteById(houseId);
+            houseRepository.delete(house);
+            return;
+        }throw new HouseNotFoundException("House not found");
     }
 	
 
