@@ -135,25 +135,6 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testChangePassword_UserExists() {
-        String newPassword = "newPassword";
-        when(userRepository.findByUsername(user.getUsername())).thenReturn(user);
-        when(userRepository.save(user)).thenReturn(user);
-
-        userService.changePassword(user.getUsername(), newPassword);
-
-        assertEquals(newPassword, user.getPassword());
-
-    }
-
-    @Test
-    public void testChangePassword_UserNotFound() {
-        when(userRepository.findByUsername(user.getUsername())).thenReturn(null);
-
-        assertThrows(UserNotFoundException.class, () -> userService.changePassword(user.getUsername(), "newPassword"));
-    }
-
-    @Test
     public void testShare_UserAndHouseExist() {
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));

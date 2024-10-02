@@ -51,17 +51,6 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
         userRepository.delete(user);
     }
-
-    public void changePassword(String username, String password) {
-        User user = userRepository.findByUsername(username);
-        if(user != null) {
-            user.setPassword(password);
-            userRepository.save(user);
-            return;
-        }
-        throw new UserNotFoundException("User not found");
-    }
-
     public User share(Long houseId, Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         Optional<House> houseOptional = houseRepository.findById(houseId);

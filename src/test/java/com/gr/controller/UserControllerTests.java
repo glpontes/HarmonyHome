@@ -105,10 +105,24 @@ public class UserControllerTests {
     @Test
     @WithMockUser(username = "testuser")
     void testShareHouse() throws Exception{
+        Mockito.when(userService.share(1L, 1L)).thenReturn(user);
+
+        mockMvc.perform(get("/api/user/1/house/1/share")
+                .content(new ObjectMapper().writeValueAsString(user)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(user.getId()))
+                .andExpect(jsonPath("$.username").value(user.getUsername()));
     }
 
     @Test
     @WithMockUser(username = "testuser")
     void testUnshareHouse() throws Exception{
+        Mockito.when(userService.unshare(1L, 1L)).thenReturn(user);
+
+        mockMvc.perform(delete("/api/user/1/house/1/share")
+                .content(new ObjectMapper().writeValueAsString(user)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(user.getId()))
+                .andExpect(jsonPath("$.username").value(user.getUsername()));
     }
 }

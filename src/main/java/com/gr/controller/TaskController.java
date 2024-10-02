@@ -25,7 +25,7 @@ public class TaskController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/Task")
+    @GetMapping("/task")
     List<Task> listTasks(){
         return taskService.listTasks();
     }
@@ -54,7 +54,7 @@ public class TaskController {
         return convertToDTO(taskUpdated);
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/task/{taskId}")
     public void deleteTask(@PathVariable Long taskId){
     	taskService.deleteTask(taskId);

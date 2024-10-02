@@ -55,7 +55,7 @@ public class RoomController {
         return convertToDTO(roomUpdated);
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/room/{roomId}")
     public void deleteRoom(@PathVariable Long roomId){
     	roomService.deleteRoom(roomId);
