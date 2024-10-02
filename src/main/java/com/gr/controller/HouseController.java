@@ -59,7 +59,7 @@ public class HouseController {
         return convertToDTO(houseUpdated);
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/house/{houseId}")
     public void deleteHouse(@PathVariable Long houseId){
     	houseService.deleteHouse(houseId);
