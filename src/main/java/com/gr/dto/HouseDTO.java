@@ -48,7 +48,6 @@ public class HouseDTO {
 		return "HouseDTO {id=" + id + ", adress=" + address + "}";
 	}
 	
-	
 
 	
 }

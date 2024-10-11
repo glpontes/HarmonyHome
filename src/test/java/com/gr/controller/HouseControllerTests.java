@@ -35,9 +35,6 @@ public class HouseControllerTests {
     @MockBean
     private HouseService houseService;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
     private House house;
 
     @BeforeEach

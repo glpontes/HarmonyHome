@@ -68,7 +68,7 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/user/{userId}/house/{houseId}/share")
-    public UserDTO deleteHouse(@PathVariable Long userId, @PathVariable Long houseId){
+    public UserDTO unshareHouse(@PathVariable Long userId, @PathVariable Long houseId){
         User u = userService.unshare(houseId, userId);
         return convertToDTO(u);
     }
