@@ -27,8 +27,8 @@ public class RoomController {
 
 	@ResponseStatus(HttpStatus.OK)
     @GetMapping("/room")
-    List<Room> listRooms(){
-        return roomService.listRooms();
+    List<RoomDTO> listRooms(){
+        return roomService.listRooms().stream().map(this::convertToDTO).toList();
     }
 
     @ResponseStatus(HttpStatus.OK)
