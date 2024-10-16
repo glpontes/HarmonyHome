@@ -26,8 +26,8 @@ public class TaskController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/task")
-    List<Task> listTasks(){
-        return taskService.listTasks();
+    List<TaskDTO> listTasks(){
+        return taskService.listTasks().stream().map(this::convertToDTO).toList();
     }
 
     @ResponseStatus(HttpStatus.OK)
